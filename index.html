@@ -1,1 +1,30 @@
-<p1>hi</p1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Territory - Global War</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🌍 Territory</h1>
+
+<div id="select">
+    <h2>Select your country</h2>
+    <button onclick="choose('Sweden')">🇸🇪 Sweden</button>
+    <button onclick="choose('USA')">🇺🇸 USA</button>
+    <button onclick="choose('Germany')">🇩🇪 Germany</button>
+</div>
+
+<div id="game">
+    <h2 id="yourCountry"></h2>
+    <h3>Power: <span id="power">0</span></h3>
+
+    <button id="mainBtn" onclick="gainPower()">+ Gain Power</button>
+
+    <h2>🌎 Territories</h2>
+    <div id="countries"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
