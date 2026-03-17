@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Territory - Global War</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -8,6 +9,7 @@
 
 <h1>🌍 Territory</h1>
 
+<!-- Country selection screen -->
 <div id="select">
     <h2>Select your country</h2>
     <button onclick="choose('Sweden')">🇸🇪 Sweden</button>
@@ -15,16 +17,21 @@
     <button onclick="choose('Germany')">🇩🇪 Germany</button>
 </div>
 
+<!-- Game screen -->
 <div id="game">
     <h2 id="yourCountry"></h2>
     <h3>Power: <span id="power">0</span></h3>
-
+    
     <button id="mainBtn" onclick="gainPower()">+ Gain Power</button>
+
+    <!-- Search bar -->
+    <input type="text" id="search" placeholder="Search country..." oninput="searchCountries()">
 
     <h2>🌎 Territories</h2>
     <div id="countries"></div>
 </div>
 
+<!-- JS -->
 <script src="script.js"></script>
 </body>
 </html>
