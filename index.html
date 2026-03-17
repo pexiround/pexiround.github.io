@@ -1,37 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Territory - Global War</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Territory Map War</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>🌍 Territory</h1>
+<h1>🌍 Territory Map War</h1>
+<p>Click on your country to start!</p>
 
-<!-- Country selection screen -->
-<div id="select">
-    <h2>Select your country</h2>
-    <button onclick="choose('Sweden')">🇸🇪 Sweden</button>
-    <button onclick="choose('USA')">🇺🇸 USA</button>
-    <button onclick="choose('Germany')">🇩🇪 Germany</button>
-</div>
+<div id="info">No country selected</div>
 
-<!-- Game screen -->
-<div id="game">
-    <h2 id="yourCountry"></h2>
-    <h3>Power: <span id="power">0</span></h3>
-    
-    <button id="mainBtn" onclick="gainPower()">+ Gain Power</button>
+<svg id="map" viewBox="0 0 1000 500">
+    <!-- Example simplified countries (replace with full SVG later) -->
+    <rect id="Sweden" class="country" x="450" y="100" width="20" height="20"></rect>
+    <rect id="Norway" class="country" x="430" y="100" width="20" height="20"></rect>
+    <rect id="Finland" class="country" x="470" y="100" width="20" height="20"></rect>
+    <rect id="Germany" class="country" x="450" y="150" width="20" height="20"></rect>
+    <rect id="USA" class="country" x="100" y="200" width="30" height="30"></rect>
+</svg>
 
-    <!-- Search bar -->
-    <input type="text" id="search" placeholder="Search country..." oninput="searchCountries()">
-
-    <h2>🌎 Territories</h2>
-    <div id="countries"></div>
-</div>
-
-<!-- JS -->
 <script src="script.js"></script>
 </body>
 </html>
