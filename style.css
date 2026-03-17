@@ -1,1 +1,42 @@
+body {
+    font-family: Arial;
+    background: #0f172a;
+    color: white;
+    text-align: center;
+}
 
+h1 {
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background: #1e293b;
+    color: white;
+}
+
+button:hover {
+    background: #334155;
+}
+
+#mainBtn {
+    font-size: 20px;
+    background: #22c55e;
+}
+
+#game {
+    display: none;
+}
+
+.country {
+    background: #1e293b;
+    display: inline-block;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    width: 200px;
+}
