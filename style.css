@@ -9,34 +9,25 @@ h1 {
     margin-top: 20px;
 }
 
-button {
-    padding: 10px 20px;
-    margin: 5px;
-    cursor: pointer;
-    border: none;
-    border-radius: 8px;
-    background: #1e293b;
-    color: white;
-}
-
-button:hover {
-    background: #334155;
-}
-
-#mainBtn {
-    font-size: 20px;
-    background: #22c55e;
-}
-
-#game {
-    display: none;
+svg {
+    width: 80%;
+    margin-top: 20px;
 }
 
 .country {
-    background: #1e293b;
-    display: inline-block;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 10px;
-    width: 200px;
+    fill: #1e293b;
+    stroke: white;
+    stroke-width: 0.5;
+    cursor: pointer;
+    transition: fill 0.3s;
+}
+
+.country:hover {
+    stroke: yellow;
+    stroke-width: 1;
+}
+
+#info {
+    margin-top: 20px;
+    font-size: 18px;
 }
