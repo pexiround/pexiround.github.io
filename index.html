@@ -8,19 +8,14 @@
 <body>
 
 <h1>🌍 Territory Map War</h1>
-<p>Click on your country to start!</p>
+<p>Click a country to start</p>
 
 <div id="info">No country selected</div>
 
-<svg id="map" viewBox="0 0 1000 500">
-    <!-- Example simplified countries (replace with full SVG later) -->
-    <rect id="Sweden" class="country" x="450" y="100" width="20" height="20"></rect>
-    <rect id="Norway" class="country" x="430" y="100" width="20" height="20"></rect>
-    <rect id="Finland" class="country" x="470" y="100" width="20" height="20"></rect>
-    <rect id="Germany" class="country" x="450" y="150" width="20" height="20"></rect>
-    <rect id="USA" class="country" x="100" y="200" width="30" height="30"></rect>
-</svg>
+<!-- SVG will be loaded here -->
+<div id="map-container"></div>
 
+<script src="adjacency.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
