@@ -1,55 +1,130 @@
-// game state
-let countries = {};
-let neighbors = {
-    Sweden: ["Norway","Finland","Germany"],
-    Norway: ["Sweden","Finland"],
-    Finland: ["Sweden","Norway"],
-    Germany: ["Sweden"],
-    USA: []
-};
-
 let player = null;
+let countries = {};
+let geoData = null;
 
-// initialize country scores
-for (let c in neighbors) countries[c] = 0;
+// 🔥 LOAD YOUR GEOJSON (map.geojson)
+fetch("map.geojson")
+.then(res => res.json())
+.then(data => {
+    geoData = data;
+    drawMap();
+})
+.catch(err => console.error("GeoJSON load error:", err));
 
-// select player country
-document.querySelectorAll(".country").forEach(el => {
-    el.addEventListener("click", () => {
-        player = el.id;
-        countries[player] = 10; // starting points
-        document.getElementById("info").innerText = "You chose: " + player;
-        updateColors();
+// 🔹 DRAW MAP
+function drawMap() {
+    const svg = document.getElementById("map");
+
+    geoData.features.forEach(feature => {
+
+        // 🔥 auto-detect name field
+        const name =
+            feature.properties.name ||
+            feature.properties.ADMIN ||
+            feature.properties.NAME ||
+            feature.properties.Country ||
+            "Unknown";
+
+        countries[name] = 1;
+
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+
+        const d = geoToPath(feature.geometry);
+        path.setAttribute("d", d);
+        path.setAttribute("class", "country");
+        path.dataset.name = name;
+
+        path.addEventListener("click", () => selectCountry(name));
+
+        svg.appendChild(path);
     });
-});
 
-// auto gain & attack every 15 seconds
-setInterval(() => {
-    if (!player) return;
+    console.log("Map loaded with", Object.keys(countries).length, "countries");
+}
 
-    // gain 1 point
-    countries[player] += 1;
+// 🔹 GEOJSON → SVG PATH (handles Polygon + MultiPolygon)
+function geoToPath(geometry) {
+    let path = "";
 
-    // attack random neighbor
-    let neigh = neighbors[player];
-    if (neigh.length > 0) {
-        let target = neigh[Math.floor(Math.random() * neigh.length)];
-        if (countries[target] > 0) {
-            countries[target] -= 1;
-            countries[player] += 1;
+    if (geometry.type === "Polygon") {
+        path += drawPolygon(geometry.coordinates);
+    }
+
+    if (geometry.type === "MultiPolygon") {
+        geometry.coordinates.forEach(polygon => {
+            path += drawPolygon(polygon);
+        });
+    }
+
+    return path;
+}
+
+function drawPolygon(coords) {
+    let path = "";
+
+    coords.forEach(ring => {
+        ring.forEach((coord, i) => {
+            const x = (coord[0] + 180) * 3;   // scale longitude
+            const y = (90 - coord[1]) * 3;    // flip latitude
+
+            path += (i === 0 ? "M" : "L") + x + " " + y;
+        });
+        path += "Z";
+    });
+
+    return path;
+}
+
+// 🔹 SELECT COUNTRY
+function selectCountry(name) {
+    if (player) return;
+
+    player = name;
+    countries[player] = 10;
+
+    document.getElementById("info").innerText = "You are " + player;
+
+    updateMap();
+    startGame();
+}
+
+// 🔹 GAME LOOP (every 15s)
+function startGame() {
+    setInterval(() => {
+        if (!player) return;
+
+        countries[player] += 1;
+
+        let possible = neighbors[player] || [];
+
+        if (possible.length > 0) {
+            let target = possible[Math.floor(Math.random() * possible.length)];
+
+            if (countries[target] > 0) {
+                countries[target] -= 1;
+                countries[player] += 1;
+            }
         }
-    }
 
-    updateColors();
-}, 15000);
+        updateMap();
+    }, 15000);
+}
 
-// update SVG colors based on points
-function updateColors() {
-    for (let c in countries) {
-        let el = document.getElementById(c);
-        if (!el) continue;
-        let score = countries[c];
-        let intensity = Math.min(255, 50 + score * 5);
-        el.style.fill = player === c ? `rgb(50, ${intensity}, 50)` : `rgb(30, ${intensity}, 30)`;
-    }
+// 🔹 UPDATE COLORS
+function updateMap() {
+    document.querySelectorAll(".country").forEach(el => {
+        const name = el.dataset.name;
+
+        el.classList.remove("player","enemy","attackable");
+
+        if (name === player) {
+            el.classList.add("player");
+        } else if ((neighbors[player] || []).includes(name)) {
+            el.classList.add("attackable");
+        } else {
+            el.classList.add("enemy");
+        }
+
+        el.title = name + " (" + (countries[name] || 0) + ")";
+    });
 }
