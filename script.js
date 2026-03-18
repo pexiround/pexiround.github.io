@@ -1,24 +1,18 @@
 let player = null;
 let day = 0;
 let countries = {};
-let stats = { military: 0, resources: 0 };
 
-// Load GeoJSON
+// Load map
 fetch("map.geojson")
 .then(res => res.json())
 .then(data => drawMap(data))
 .catch(err => console.error("Map load error:", err));
 
-// Draw map
 function drawMap(data) {
     const svg = document.getElementById("map");
 
     data.features.forEach(feature => {
-        const name =
-            feature.properties.name ||
-            feature.properties.ADMIN ||
-            feature.properties.NAME ||
-            "Unknown";
+        const name = feature.properties.name || feature.properties.ADMIN || "Unknown";
 
         countries[name] = 0;
 
@@ -35,10 +29,9 @@ function drawMap(data) {
     console.log("Countries loaded:", Object.keys(countries).length);
 }
 
-// Convert GeoJSON → SVG
+// Convert GeoJSON to SVG
 function geoToPath(geometry) {
     let path = "";
-
     const draw = coords => {
         coords.forEach(ring => {
             ring.forEach((c,i) => {
@@ -56,54 +49,47 @@ function geoToPath(geometry) {
     return path;
 }
 
-// Select a country to play
+// Select a country to start ruling
 function selectCountry(name) {
     if(!player) {
         player = name;
         countries[player] = 10;
-        stats = { ...countryStats[name] } || { military: 5, resources: 5 };
         document.getElementById("info").innerText = "You rule " + player;
-        updateStats();
         updateMap();
         startDays();
+    } else {
+        // Attack another country
+        if(name !== player) {
+            const success = Math.random() < 0.5;
+            if(success) {
+                alert(`You won the war against ${name}!`);
+                countries[player] += 1;
+            } else {
+                alert(`You lost the war against ${name}!`);
+            }
+            updateMap();
+        }
     }
 }
 
-// Advance “day” every 15 sec
+// Day system
 function startDays() {
     setInterval(() => {
         day++;
-        document.getElementById("info").innerText = `Day ${day} - Your country: ${player}`;
+        document.getElementById("stats").innerText = "Day: " + day;
         triggerEvent();
-        updateStats();
     }, 15000);
 }
 
-// Trigger random event (simplified)
+// Random simple events
 function triggerEvent() {
-    const choices = ["attack", "peace", "resource"];
-    const choice = choices[Math.floor(Math.random()*choices.length)];
-
-    if(choice==="attack") {
-        const target = prompt(`Do you want to attack a country? Type name or cancel`);
-        if(target && countries[target] !== undefined && target !== player) {
-            const success = Math.random() < (stats.military/20);
-            if(success) {
-                alert(`You won the war against ${target}!`);
-                countries[player] += 1;
-            } else {
-                alert(`You lost the war against ${target}!`);
-                stats.military = Math.max(0, stats.military-2);
-            }
-        }
-    } else if(choice==="resource") {
-        stats.resources += Math.floor(Math.random()*3)+1;
-        alert(`You gained some resources!`);
-    } else {
-        alert(`Peaceful day in ${player}.`);
-    }
-
-    updateMap();
+    const events = [
+        `Peaceful day in ${player}`,
+        `You gained a new resource in ${player}`,
+        `A neighboring country is weak!`
+    ];
+    const e = events[Math.floor(Math.random()*events.length)];
+    console.log(`Day ${day}: ${e}`);
 }
 
 // Update map colors
@@ -112,12 +98,6 @@ function updateMap() {
         const name = el.dataset.name;
         el.classList.remove("player","enemy");
         if(name===player) el.classList.add("player");
-        else if(countries[name]>0) el.classList.add("enemy");
+        else el.classList.add("enemy");
     });
-}
-
-// Update stats display
-function updateStats() {
-    document.getElementById("stats").innerText = 
-        `Day: ${day} | Military: ${stats.military} | Resources: ${stats.resources}`;
 }
