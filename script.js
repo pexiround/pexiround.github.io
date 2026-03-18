@@ -2,27 +2,26 @@ let player = null;
 let countries = {};
 let geoData = null;
 
-// 🔥 LOAD YOUR GEOJSON (map.geojson)
+// LOAD GEOJSON
 fetch("map.geojson")
 .then(res => res.json())
 .then(data => {
     geoData = data;
     drawMap();
 })
-.catch(err => console.error("GeoJSON load error:", err));
+.catch(err => console.error("Error loading map:", err));
 
-// 🔹 DRAW MAP
+// DRAW MAP
 function drawMap() {
     const svg = document.getElementById("map");
 
     geoData.features.forEach(feature => {
 
-        // 🔥 auto-detect name field
+        // auto-detect name field
         const name =
             feature.properties.name ||
             feature.properties.ADMIN ||
             feature.properties.NAME ||
-            feature.properties.Country ||
             "Unknown";
 
         countries[name] = 1;
@@ -39,10 +38,10 @@ function drawMap() {
         svg.appendChild(path);
     });
 
-    console.log("Map loaded with", Object.keys(countries).length, "countries");
+    console.log("Loaded countries:", Object.keys(countries).length);
 }
 
-// 🔹 GEOJSON → SVG PATH (handles Polygon + MultiPolygon)
+// GEOJSON → SVG
 function geoToPath(geometry) {
     let path = "";
 
@@ -64,8 +63,8 @@ function drawPolygon(coords) {
 
     coords.forEach(ring => {
         ring.forEach((coord, i) => {
-            const x = (coord[0] + 180) * 3;   // scale longitude
-            const y = (90 - coord[1]) * 3;    // flip latitude
+            const x = (coord[0] + 180) * 3;
+            const y = (90 - coord[1]) * 3;
 
             path += (i === 0 ? "M" : "L") + x + " " + y;
         });
@@ -75,7 +74,7 @@ function drawPolygon(coords) {
     return path;
 }
 
-// 🔹 SELECT COUNTRY
+// SELECT COUNTRY
 function selectCountry(name) {
     if (player) return;
 
@@ -88,7 +87,7 @@ function selectCountry(name) {
     startGame();
 }
 
-// 🔹 GAME LOOP (every 15s)
+// GAME LOOP
 function startGame() {
     setInterval(() => {
         if (!player) return;
@@ -110,7 +109,7 @@ function startGame() {
     }, 15000);
 }
 
-// 🔹 UPDATE COLORS
+// UPDATE MAP COLORS
 function updateMap() {
     document.querySelectorAll(".country").forEach(el => {
         const name = el.dataset.name;
