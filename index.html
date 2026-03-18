@@ -2,19 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Territory Map War</title>
+<title>Territory</title>
 <link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
-<h1>🌍 Territory Map War</h1>
-<p>Click a country to start</p>
+<h1>🌍 Territory</h1>
 
-<div id="info">No country selected</div>
+<div id="info">Click a country to start</div>
+<div id="power">Power: 0</div>
 
-<svg id="map"></svg>
+<div id="map-wrapper">
+    <svg id="map"></svg>
+</div>
 
-<script src="adjacency.js"></script>
 <script src="script.js"></script>
 
 </body>
