@@ -1,39 +1,34 @@
 let player = null;
 let countries = {};
-let geoData = null;
+let power = 0;
 
-// LOAD GEOJSON
+// LOAD MAP
 fetch("map.geojson")
 .then(res => res.json())
-.then(data => {
-    geoData = data;
-    drawMap();
-})
-.catch(err => console.error("Error loading map:", err));
+.then(data => drawMap(data))
+.catch(err => console.error("Map load error:", err));
 
 // DRAW MAP
-function drawMap() {
+function drawMap(data) {
     const svg = document.getElementById("map");
 
-    geoData.features.forEach(feature => {
+    data.features.forEach(feature => {
 
-        // auto-detect name field
         const name =
             feature.properties.name ||
             feature.properties.ADMIN ||
             feature.properties.NAME ||
             "Unknown";
 
-        countries[name] = 1;
+        countries[name] = 0;
 
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
 
-        const d = geoToPath(feature.geometry);
-        path.setAttribute("d", d);
+        path.setAttribute("d", geoToPath(feature.geometry));
         path.setAttribute("class", "country");
         path.dataset.name = name;
 
-        path.addEventListener("click", () => selectCountry(name));
+        path.onclick = () => handleClick(name);
 
         svg.appendChild(path);
     });
@@ -45,68 +40,65 @@ function drawMap() {
 function geoToPath(geometry) {
     let path = "";
 
-    if (geometry.type === "Polygon") {
-        path += drawPolygon(geometry.coordinates);
-    }
+    const draw = coords => {
+        coords.forEach(ring => {
+            ring.forEach((c, i) => {
+                const x = (c[0] + 180) * 5;
+                const y = (90 - c[1]) * 5;
+                path += (i === 0 ? "M" : "L") + x + " " + y;
+            });
+            path += "Z";
+        });
+    };
 
+    if (geometry.type === "Polygon") draw(geometry.coordinates);
     if (geometry.type === "MultiPolygon") {
-        geometry.coordinates.forEach(polygon => {
-            path += drawPolygon(polygon);
-        });
+        geometry.coordinates.forEach(draw);
     }
 
     return path;
 }
 
-function drawPolygon(coords) {
-    let path = "";
+// CLICK SYSTEM
+function handleClick(name) {
 
-    coords.forEach(ring => {
-        ring.forEach((coord, i) => {
-            const x = (coord[0] + 180) * 3;
-            const y = (90 - coord[1]) * 3;
+    // choose country
+    if (!player) {
+        player = name;
+        countries[player] = 10;
 
-            path += (i === 0 ? "M" : "L") + x + " " + y;
-        });
-        path += "Z";
-    });
+        document.getElementById("info").innerText = "You are " + player;
 
-    return path;
-}
+        startGame();
+        updateMap();
+        return;
+    }
 
-// SELECT COUNTRY
-function selectCountry(name) {
-    if (player) return;
+    // attack
+    if (name !== player && power > 0) {
+        power--;
 
-    player = name;
-    countries[player] = 10;
-
-    document.getElementById("info").innerText = "You are " + player;
-
-    updateMap();
-    startGame();
-}
-
-// GAME LOOP
-function startGame() {
-    setInterval(() => {
-        if (!player) return;
-
+        countries[name] -= 1;
         countries[player] += 1;
 
-        let possible = neighbors[player] || [];
-
-        if (possible.length > 0) {
-            let target = possible[Math.floor(Math.random() * possible.length)];
-
-            if (countries[target] > 0) {
-                countries[target] -= 1;
-                countries[player] += 1;
-            }
-        }
+        if (countries[name] < 0) countries[name] = 0;
 
         updateMap();
+        updatePower();
+    }
+}
+
+// AUTO POWER
+function startGame() {
+    setInterval(() => {
+        power++;
+        updatePower();
     }, 15000);
+}
+
+// UPDATE POWER UI
+function updatePower() {
+    document.getElementById("power").innerText = "Power: " + power;
 }
 
 // UPDATE MAP COLORS
@@ -114,16 +106,14 @@ function updateMap() {
     document.querySelectorAll(".country").forEach(el => {
         const name = el.dataset.name;
 
-        el.classList.remove("player","enemy","attackable");
+        el.classList.remove("player","enemy");
 
         if (name === player) {
             el.classList.add("player");
-        } else if ((neighbors[player] || []).includes(name)) {
-            el.classList.add("attackable");
         } else {
             el.classList.add("enemy");
         }
 
-        el.title = name + " (" + (countries[name] || 0) + ")";
+        el.title = name + " (" + countries[name] + ")";
     });
 }
