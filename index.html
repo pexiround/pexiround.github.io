@@ -2,24 +2,24 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>QR Code Maker</title>
+<title>Don't Click</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>QR Code Generator</h1>
+<h1>🚫 DON'T CLICK 🚫</h1>
 
-<label for="text">Enter URL or text:</label>
-<input type="text" id="text" placeholder="https://example.com">
+<div id="timer">Time survived: 0s</div>
+<div id="record">Record: 0s</div>
+<div id="last">Last click: nobody</div>
 
-<label for="logo">Optional logo image:</label>
-<input type="file" id="logo" accept="image/*">
+<button id="btn">DO NOT CLICK</button>
 
-<button id="generate">Generate QR Code</button>
+<!-- Firebase v8 (IMPORTANT) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-<div id="qrcode"></div>
-
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
