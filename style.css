@@ -25,11 +25,11 @@ h1 { margin:10px; }
     cursor:pointer;
 }
 
-.player { background:lime; }
-.ai1 { background: crimson; }
-.ai2 { background: orange; }
-.ai3 { background: cyan; }
-.land { background:#555; } /* unclaimed land */
+.pixel.land { background:#555; }
+.pixel.player { background:lime; }
+.pixel.ai1 { background:crimson; }
+.pixel.ai2 { background:orange; }
+.pixel.ai3 { background:cyan; }
 
 @media(max-width:600px){
     #grid { grid-template-columns: repeat(20, 15px); grid-template-rows: repeat(20,15px);}
