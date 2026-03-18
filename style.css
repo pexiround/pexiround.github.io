@@ -1,24 +1,36 @@
 body {
+    margin: 0;
     font-family: Arial;
     background: #0f172a;
     color: white;
     text-align: center;
 }
 
-#map {
+h1 {
+    margin: 10px;
+}
+
+/* scrollable map container */
+#map-wrapper {
     width: 100%;
-    height: 600px;
+    height: 80vh;
+    overflow: scroll;
+    border-top: 1px solid #333;
+}
+
+/* large map so you can move around */
+#map {
+    width: 2000px;
+    height: 1000px;
     background: #020617;
-    border: 1px solid #333;
 }
 
 /* countries */
 .country {
     fill: #1e293b;
     stroke: #111;
-    stroke-width: 0.3;
+    stroke-width: 0.2;
     cursor: pointer;
-    transition: 0.2s;
 }
 
 .country:hover {
@@ -34,11 +46,6 @@ body {
     fill: crimson !important;
 }
 
-.attackable {
-    fill: yellow !important;
-}
-
-#info {
-    margin: 20px;
-    font-size: 18px;
+#info, #power {
+    margin: 5px;
 }
