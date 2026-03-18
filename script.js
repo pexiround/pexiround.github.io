@@ -1,43 +1,46 @@
 const grid = document.getElementById("grid");
-const size = 20; // 20x20 pixels
-let power = 0;
+const size = 20; // 20x20 grid
+let power = 5;
+const pixels = [];
 
 // Initialize grid
-const pixels = [];
-for(let i=0;i<size*size;i++){
+for (let i = 0; i < size * size; i++) {
     const div = document.createElement("div");
     div.classList.add("pixel");
     div.dataset.index = i;
-    div.onclick = () => capturePixel(div);
+    div.addEventListener("click", () => capturePixel(div));
     grid.appendChild(div);
     pixels.push(div);
 }
 
 // Capture pixel
-function capturePixel(pixel){
-    if(pixel.classList.contains("player")) return;
-    if(power<=0) return alert("Not enough power!");
+function capturePixel(pixel) {
+    if (pixel.classList.contains("player")) return;
+    if (power <= 0) return alert("Not enough power!");
     power--;
     pixel.classList.remove("enemy");
     pixel.classList.add("player");
     updatePower();
 }
 
-// Auto-gain power
-setInterval(()=>{
+// Update power display
+function updatePower() {
+    document.getElementById("power").innerText = "Power: " + power;
+}
+
+// Auto-gain power every 5 seconds
+setInterval(() => {
     power++;
     updatePower();
-},5000);
+}, 5000);
 
-// Enemy AI: randomly capture pixels
-setInterval(()=>{
+// Enemy AI: randomly capture pixels every 7 seconds
+setInterval(() => {
     const freePixels = pixels.filter(p => !p.classList.contains("player"));
-    if(freePixels.length ===0) return;
-    const p = freePixels[Math.floor(Math.random()*freePixels.length)];
-    p.classList.remove("player");
+    if (freePixels.length === 0) return;
+    const p = freePixels[Math.floor(Math.random() * freePixels.length)];
     p.classList.add("enemy");
-},7000);
+}, 7000);
 
-function updatePower(){
-    document.getElementById("power").innerText = "Power: "+power;
-}
+// Initialize power display
+updatePower();
