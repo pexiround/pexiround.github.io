@@ -1,17 +1,17 @@
 const grid = document.getElementById("grid");
-const size = 30; // grid size
-const numPlayers = 3; // AI
-let nextPixelTimer = 5; // seconds
+const size = 30; // 30x30 grid
+const numAIs = 3;
 let pixels = [];
 let playerPixels = [];
 let aiPixels = [[],[],[]];
+let nextPixelTimer = 5;
 
-// Generate random land continent
+// Generate random land map (~30% land)
 const landMap = [];
 for(let i=0;i<size;i++){
     landMap[i] = [];
     for(let j=0;j<size;j++){
-        landMap[i][j] = Math.random()<0.3?1:0; // 30% chance land
+        landMap[i][j] = Math.random()<0.3?1:0;
     }
 }
 
@@ -23,73 +23,87 @@ for(let i=0;i<size;i++){
         if(landMap[i][j]) div.classList.add("land");
         div.dataset.i = i;
         div.dataset.j = j;
-        div.onclick = ()=> claimPixel(div);
+        div.addEventListener("click", ()=> claimPixel(div));
         grid.appendChild(div);
         pixels.push(div);
     }
 }
 
-// Helper: get neighbors of a pixel
+// Get neighbors
 function getNeighbors(i,j){
     const neighbors = [];
-    const dirs = [[0,1],[1,0],[0,-1],[-1,0]]; // up,right,down,left
-    dirs.forEach(d=>{
-        const ni=i+d[0], nj=j+d[1];
-        if(ni>=0 && ni<size && nj>=0 && nj<size){
-            neighbors.push(ni*size+nj);
-        }
+    [[0,1],[1,0],[0,-1],[-1,0]].forEach(([di,dj])=>{
+        const ni=i+di, nj=j+dj;
+        if(ni>=0 && ni<size && nj>=0 && nj<size) neighbors.push(ni*size+nj);
     });
     return neighbors;
 }
 
-// Spawn starting pixels for player and AI
-function spawnPlayer(playerArray, className){
-    let count = 0;
+// Spawn 5 connected pixels for player or AI
+function spawnTerritory(array, className){
+    let count=0;
     while(count<5){
         const idx = Math.floor(Math.random()*pixels.length);
         const p = pixels[idx];
-        const i = parseInt(p.dataset.i), j = parseInt(p.dataset.j);
-        if(!p.classList.contains("land")) continue; // must be land
-        if(playerArray.length===0){
+        const i=parseInt(p.dataset.i), j=parseInt(p.dataset.j);
+        if(!p.classList.contains("land") || array.includes(idx)) continue;
+        if(array.length===0){
             p.classList.add(className);
-            playerArray.push(idx);
+            array.push(idx);
             count++;
         } else {
             // must be adjacent to existing
-            let adj = getNeighbors(i,j).some(n=>playerArray.includes(n));
+            let adj = getNeighbors(i,j).some(n=>array.includes(n));
             if(adj){
                 p.classList.add(className);
-                playerArray.push(idx);
+                array.push(idx);
                 count++;
             }
         }
     }
 }
 
-spawnPlayer(playerPixels,"player");
-spawnPlayer(aiPixels[0],"ai1");
-spawnPlayer(aiPixels[1],"ai2");
-spawnPlayer(aiPixels[2],"ai3");
+// Spawn player and AI territories
+spawnTerritory(playerPixels,"player");
+for(let k=0;k<numAIs;k++) spawnTerritory(aiPixels[k],"ai"+(k+1));
 
-// Claim pixel function (only adjacent to your land)
+// Claim pixel (adjacency-only, no teleport)
 function claimPixel(p){
     if(!p.classList.contains("land")) return;
     const i=parseInt(p.dataset.i), j=parseInt(p.dataset.j);
     const idx=i*size+j;
-    // must be adjacent to existing player pixels
-    if(!getNeighbors(i,j).some(n=>playerPixels.includes(n))) return;
+
+    // BFS to check if pixel is adjacent to main territory
+    const visited = new Set();
+    const queue = [...playerPixels];
+    let canClaim = false;
+
+    while(queue.length>0){
+        const current = queue.shift();
+        const ci = Math.floor(current/size);
+        const cj = current%size;
+        if(Math.abs(ci-i)+Math.abs(cj-j)===1){ canClaim=true; break; }
+        getNeighbors(ci,cj).forEach(n=>{
+            if(!visited.has(n) && playerPixels.includes(n)){
+                visited.add(n);
+                queue.push(n);
+            }
+        });
+    }
+
+    if(!canClaim) return;
     p.classList.remove("land");
     p.classList.add("player");
     playerPixels.push(idx);
 }
 
-// Pixel timer
+// Player pixel timer
 setInterval(()=>{
     if(nextPixelTimer>0){
         nextPixelTimer--;
         document.getElementById("timer").innerText="Next pixel in: "+nextPixelTimer+"s";
     } else {
-        // give player 1 pixel automatically
+        // Automatically place pixel if possible
         const possible = pixels.filter(p=>{
             const i=parseInt(p.dataset.i), j=parseInt(p.dataset.j);
             const idx=i*size+j;
@@ -106,11 +120,10 @@ setInterval(()=>{
     }
 },1000);
 
-// Simple AI expansion
+// AI expansion
 setInterval(()=>{
     aiPixels.forEach((arr,classIdx)=>{
         const className="ai"+(classIdx+1);
-        // pick random pixel adjacent to AI land
         const candidates=pixels.filter(p=>{
             const i=parseInt(p.dataset.i), j=parseInt(p.dataset.j);
             return p.classList.contains("land") && getNeighbors(i,j).some(n=>arr.includes(n));
