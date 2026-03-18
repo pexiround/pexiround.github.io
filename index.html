@@ -2,17 +2,24 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Pixel War</title>
+<title>QR Code Maker</title>
 <link rel="stylesheet" href="style.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
-<h1>🗺 Pixel War: Continent Edition</h1>
-<div id="info">Click a pixel to expand your territory!</div>
-<div id="timer">Next pixel in: 5s</div>
-<div id="grid"></div>
+<h1>QR Code Generator</h1>
 
+<label for="text">Enter URL or text:</label>
+<input type="text" id="text" placeholder="https://example.com">
+
+<label for="logo">Optional logo image:</label>
+<input type="file" id="logo" accept="image/*">
+
+<button id="generate">Generate QR Code</button>
+
+<div id="qrcode"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
