@@ -1,1 +1,18 @@
-
+const neighbors = {
+    Sweden: ["Norway","Finland"],
+    Norway: ["Sweden","Finland"],
+    Finland: ["Sweden","Norway","Russia"],
+    Germany: ["France","Poland","Denmark"],
+    France: ["Spain","Germany","Italy"],
+    Spain: ["France","Portugal"],
+    Portugal: ["Spain"],
+    USA: ["Canada","Mexico"],
+    Canada: ["USA"],
+    Mexico: ["USA"],
+    China: ["India","Russia","Mongolia"],
+    India: ["China","Pakistan"],
+    Russia: ["Finland","China","Ukraine"],
+    Ukraine: ["Russia","Poland"],
+    Poland: ["Germany","Ukraine"],
+    Italy: ["France"],
+};
