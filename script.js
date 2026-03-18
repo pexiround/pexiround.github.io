@@ -1,4 +1,4 @@
-// 🔥 YOUR FIREBASE CONFIG (FIXED)
+// 🔥 Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyBtEl_SVtmkl6ET9-KdPRQLtkgmkUGUnEE",
   authDomain: "dont-click-game.firebaseapp.com",
@@ -46,20 +46,18 @@ db.ref("/game").on("value", snap => {
     lastEl.innerText = "Last click: " + data.lastClick;
 });
 
-// Timer refresh
+// Timer refresh every second
 setInterval(() => {
     db.ref("/game").once("value", snap => {
         const data = snap.val();
         if (!data) return;
-
         const now = Date.now();
         const seconds = Math.floor((now - data.startTime) / 1000);
-
         timerEl.innerText = "Time survived: " + seconds + "s";
     });
 }, 1000);
 
-// CLICK BUTTON
+// Click handler
 btn.onclick = () => {
     db.ref("/game").once("value", snap => {
         const data = snap.val();
