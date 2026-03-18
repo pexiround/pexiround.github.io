@@ -1,28 +1,51 @@
 body {
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     text-align: center;
     background: #0f172a;
     color: white;
+    margin: 0;
 }
 
-h1 { margin: 10px; }
-#info, #power { margin: 5px; font-size:16px; }
+h1 {
+    margin: 10px;
+}
+
+#info, #power {
+    margin: 5px;
+    font-size: 16px;
+}
 
 #grid {
     display: grid;
-    grid-template-columns: repeat(20, 25px);
-    grid-template-rows: repeat(20, 25px);
+    grid-template-columns: repeat(20, 30px);
+    grid-template-rows: repeat(20, 30px);
     gap: 1px;
     justify-content: center;
     margin-top: 20px;
 }
 
 .pixel {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     background: #1e293b;
     cursor: pointer;
 }
 
-.pixel.player { background: lime; }
-.pixel.enemy { background: crimson; }
+.pixel.player {
+    background: lime;
+}
+
+.pixel.enemy {
+    background: crimson;
+}
+
+@media (max-width: 600px) {
+    #grid {
+        grid-template-columns: repeat(15, 20px);
+        grid-template-rows: repeat(15, 20px);
+    }
+    .pixel {
+        width: 20px;
+        height: 20px;
+    }
+}
