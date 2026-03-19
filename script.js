@@ -1,80 +1,85 @@
-// 🔥 Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyBtEl_SVtmkl6ET9-KdPRQLtkgmkUGUnEE",
-  authDomain: "dont-click-game.firebaseapp.com",
-  databaseURL: "https://dont-click-game-default-rtdb.firebaseio.com",
-  projectId: "dont-click-game",
-  storageBucket: "dont-click-game.firebasestorage.app",
-  messagingSenderId: "1037342182323",
-  appId: "1:1037342182323:web:0e858ab445886ff23ad9c6"
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+canvas.width = 600;
+canvas.height = 400;
+
+// Player
+let player = {
+    x: 100,
+    y: 100,
+    size: 20,
+    speed: 3,
+    hp: 100
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+// Enemy
+let enemy = {
+    x: 300,
+    y: 200,
+    size: 20,
+    hp: 50
+};
 
-// Elements
-const btn = document.getElementById("btn");
-const timerEl = document.getElementById("timer");
-const recordEl = document.getElementById("record");
-const lastEl = document.getElementById("last");
+// Controls
+let keys = {};
 
-// Random username
-let username = "Player" + Math.floor(Math.random() * 10000);
+document.addEventListener("keydown", e => keys[e.key] = true);
+document.addEventListener("keyup", e => keys[e.key] = false);
 
-// Initialize game if empty
-db.ref("/game").once("value", snap => {
-    if (!snap.exists()) {
-        db.ref("/game").set({
-            startTime: Date.now(),
-            record: 0,
-            lastClick: "nobody"
-        });
+// Game loop
+function update() {
+
+    // Movement
+    if(keys["w"]) player.y -= player.speed;
+    if(keys["s"]) player.y += player.speed;
+    if(keys["a"]) player.x -= player.speed;
+    if(keys["d"]) player.x += player.speed;
+
+    // Enemy follows player
+    if(player.x < enemy.x) enemy.x -= 1;
+    if(player.x > enemy.x) enemy.x += 1;
+    if(player.y < enemy.y) enemy.y -= 1;
+    if(player.y > enemy.y) enemy.y += 1;
+}
+
+// Attack
+document.addEventListener("keydown", e => {
+    if(e.key === " ") {
+        let dx = player.x - enemy.x;
+        let dy = player.y - enemy.y;
+        let dist = Math.sqrt(dx*dx + dy*dy);
+
+        if(dist < 40) {
+            enemy.hp -= 10;
+            console.log("Hit! Enemy HP:", enemy.hp);
+        }
     }
 });
 
-// Live updates
-db.ref("/game").on("value", snap => {
-    const data = snap.val();
-    if (!data) return;
+// Draw
+function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
 
-    const now = Date.now();
-    const seconds = Math.floor((now - data.startTime) / 1000);
+    // Player
+    ctx.fillStyle = "lime";
+    ctx.fillRect(player.x, player.y, player.size, player.size);
 
-    timerEl.innerText = "Time survived: " + seconds + "s";
-    recordEl.innerText = "Record: " + data.record + "s";
-    lastEl.innerText = "Last click: " + data.lastClick;
-});
+    // Enemy
+    ctx.fillStyle = "red";
+    ctx.fillRect(enemy.x, enemy.y, enemy.size, enemy.size);
 
-// Timer refresh every second
-setInterval(() => {
-    db.ref("/game").once("value", snap => {
-        const data = snap.val();
-        if (!data) return;
-        const now = Date.now();
-        const seconds = Math.floor((now - data.startTime) / 1000);
-        timerEl.innerText = "Time survived: " + seconds + "s";
-    });
-}, 1000);
+    // HP text
+    ctx.fillStyle = "white";
+    ctx.fillText("Player HP: " + player.hp, 10, 20);
+    ctx.fillText("Enemy HP: " + enemy.hp, 10, 40);
+}
 
-// Click handler
-btn.onclick = () => {
-    db.ref("/game").once("value", snap => {
-        const data = snap.val();
-        if (!data) return;
+// Loop
+function gameLoop() {
+    update();
+    draw();
+    requestAnimationFrame(gameLoop);
+}
 
-        const now = Date.now();
-        const survived = Math.floor((now - data.startTime) / 1000);
-
-        let newRecord = data.record;
-        if (survived > data.record) newRecord = survived;
-
-        db.ref("/game").set({
-            startTime: now,
-            record: newRecord,
-            lastClick: username
-        });
-
-        alert("💀 YOU RUINED IT");
-    });
-};
+gameLoop();
