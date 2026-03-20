@@ -1,8 +1,12 @@
 body {
     font-family: Arial;
     text-align: center;
-    background: #111;
-    color: white;
+    background: #f4f4f4;
+    color: #111;
+}
+
+h1 {
+    margin-top: 10px;
 }
 
 #controls {
@@ -18,7 +22,7 @@ body {
 .cell {
     width: 25px;
     height: 25px;
-    border: 1px solid #333;
-    background: #222;
+    border: 1px solid #ccc;
+    background: white;
     cursor: pointer;
 }
