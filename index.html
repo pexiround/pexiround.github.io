@@ -2,19 +2,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Pixel Designer</title>
+<title>Favicon Generator</title>
 <link rel="stylesheet" href="style.css">
+
+<!-- ICO LIB -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/icojs/0.19.2/ico.min.js"></script>
 </head>
 <body>
 
-<h1>Pixel Designer</h1>
+<h1>Favicon Generator</h1>
 
 <div>
     Rows: <input id="rows" type="number" value="16">
     Cols: <input id="cols" type="number" value="16">
     <button onclick="createGrid()">Create Grid</button>
-    <input type="color" id="color">
+
+    <input type="color" id="color" value="#00ff00">
+
     <button onclick="clearGrid()">Clear</button>
+    <button onclick="downloadPNG()">Download PNG</button>
+    <button onclick="downloadICO()">Download ICO</button>
 </div>
 
 <div id="grid"></div>
