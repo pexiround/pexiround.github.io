@@ -1,35 +1,32 @@
-const grid = document.getElementById("grid");
-const createBtn = document.getElementById("create");
-const clearBtn = document.getElementById("clear");
-const colorPicker = document.getElementById("color");
-
-createBtn.addEventListener("click", () => {
-    const rows = parseInt(document.getElementById("rows").value);
-    const cols = parseInt(document.getElementById("cols").value);
-
-    if (!rows || !cols) return;
+function createGrid() {
+    const grid = document.getElementById("grid");
+    const rows = document.getElementById("rows").value;
+    const cols = document.getElementById("cols").value;
 
     grid.innerHTML = "";
 
-    // FIX: set both rows and columns
-    grid.style.gridTemplateColumns = `repeat(${cols}, 25px)`;
-    grid.style.gridTemplateRows = `repeat(${rows}, 25px)`;
+    for (let r = 0; r < rows; r++) {
+        let rowDiv = document.createElement("div");
 
-    for (let i = 0; i < rows * cols; i++) {
-        const cell = document.createElement("div");
-        cell.className = "cell";
+        for (let c = 0; c < cols; c++) {
+            let cell = document.createElement("div");
+            cell.className = "cell";
 
-        cell.addEventListener("click", () => {
-            cell.style.backgroundColor = colorPicker.value;
-        });
+            cell.onclick = function () {
+                let color = document.getElementById("color").value;
+                cell.style.backgroundColor = color;
+            };
 
-        grid.appendChild(cell);
+            rowDiv.appendChild(cell);
+        }
+
+        grid.appendChild(rowDiv);
     }
-});
+}
 
-// Clear grid
-clearBtn.addEventListener("click", () => {
-    document.querySelectorAll(".cell").forEach(cell => {
-        cell.style.backgroundColor = "white";
-    });
-});
+function clearGrid() {
+    let cells = document.getElementsByClassName("cell");
+    for (let i = 0; i < cells.length; i++) {
+        cells[i].style.backgroundColor = "white";
+    }
+}
