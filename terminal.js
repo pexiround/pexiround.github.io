@@ -1,8 +1,6 @@
 const terminalInput = document.getElementById('terminal-input');
 const terminalOutput = document.getElementById('terminal-output');
 
-const commands = ["scan", "probe", "bruteforce", "inject", "view_logs", "firewall", "patch"];
-
 function addOutput(text) {
   terminalOutput.innerHTML += text + "\n";
   terminalOutput.scrollTop = terminalOutput.scrollHeight;
