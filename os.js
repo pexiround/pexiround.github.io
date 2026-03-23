@@ -1,11 +1,11 @@
-// Open window
+// Open a window
 function openApp(appId) {
   const app = document.getElementById(appId);
   if(app.style.display === "block") return;
   app.style.display = "block";
 }
 
-// Make windows draggable
+// Draggable windows
 const windows = document.querySelectorAll('.window');
 windows.forEach(win => {
   const titleBar = win.querySelector('.title-bar');
@@ -33,8 +33,5 @@ windows.forEach(win => {
       win.onmouseup = null;
     };
   };
-
-  titleBar.ondragstart = function() {
-    return false;
-  };
+  titleBar.ondragstart = function() { return false; };
 });
