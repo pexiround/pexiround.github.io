@@ -1,5 +1,4 @@
 const missionContent = document.getElementById('mission-content');
-
 const missionText = `
 [OPERATION: BLACKOUT]
 Target Domain: auth.domain-secure.net
