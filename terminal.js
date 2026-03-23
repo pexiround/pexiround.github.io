@@ -37,6 +37,12 @@ function parseCommand(input) {
     case "view_logs":
       addOutput("[INFO] POST /login returned 500 error");
       break;
+    case "firewall":
+      addOutput(`Firewall ${args[1] || 'status unknown'}`);
+      break;
+    case "patch":
+      addOutput(`${args[1] || 'endpoint'} patched`);
+      break;
     default:
       addOutput("Command not found");
   }
