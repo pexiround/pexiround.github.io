@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: monospace;
-  background: #111;
+  background: #0c0c0c;
   color: #0f0;
   overflow: hidden;
 }
@@ -14,27 +14,34 @@ body {
   padding: 20px;
   height: 100vh;
   box-sizing: border-box;
+  background: linear-gradient(135deg, #001100, #003300);
 }
 
 /* Icons */
 .icon {
-  width: 80px;
-  margin: 10px;
+  width: 90px;
+  margin: 15px;
   text-align: center;
   cursor: pointer;
   user-select: none;
   position: relative;
+  transition: transform 0.2s;
+}
+.icon:hover {
+  transform: scale(1.1);
 }
 .icon-img {
-  font-size: 40px;
-  background: #222;
+  font-size: 50px;
+  background: #111;
   color: #0f0;
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 0 10px #0f0;
 }
 .icon-label {
   margin-top: 5px;
-  font-size: 12px;
+  font-size: 13px;
+  text-shadow: 0 0 2px #0f0;
 }
 
 /* Windows */
@@ -42,21 +49,24 @@ body {
   position: absolute;
   top: 50px;
   left: 50px;
-  width: 400px;
-  height: 300px;
+  width: 450px;
+  height: 350px;
   background: #000;
   border: 2px solid #0f0;
-  border-radius: 5px;
+  border-radius: 8px;
   display: none;
   flex-direction: column;
   overflow: hidden;
   z-index: 10;
+  box-shadow: 0 0 20px #0f0;
 }
 .title-bar {
-  background: #222;
-  padding: 5px;
+  background: #111;
+  padding: 8px;
   font-weight: bold;
   cursor: move;
+  border-bottom: 1px solid #0f0;
+  text-align: center;
 }
 .window-content {
   padding: 10px;
@@ -67,7 +77,7 @@ body {
 /* Terminal */
 #terminal-input {
   width: 100%;
-  background: #111;
+  background: #0c0c0c;
   color: #0f0;
   border: none;
   outline: none;
