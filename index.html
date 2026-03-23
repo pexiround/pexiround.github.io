@@ -1,4 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cyber OS Prototype</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 <div id="desktop">
+  <!-- Icons (placeholders using emojis) -->
   <div class="icon" onclick="openApp('terminal')" data-app="terminal">
     <div class="icon-img">💻</div>
     <div class="icon-label">Terminal</div>
@@ -12,3 +22,32 @@
     <div class="icon-label">Cheat Sheet</div>
   </div>
 </div>
+
+<!-- Windows -->
+<div id="terminal" class="window">
+  <div class="title-bar">Terminal</div>
+  <div class="window-content">
+    <div id="terminal-output"></div>
+    <input id="terminal-input" placeholder="Type command..." />
+  </div>
+</div>
+
+<div id="cheatsheet" class="window">
+  <div class="title-bar">Cheat Sheet</div>
+  <div class="window-content" id="cheatsheet-content">
+    <!-- Cheat sheet filled by JS -->
+  </div>
+</div>
+
+<div id="mission" class="window">
+  <div class="title-bar">Mission Brief</div>
+  <div class="window-content" id="mission-content">
+    <!-- Mission text filled by JS -->
+  </div>
+</div>
+
+<script src="js/os.js"></script>
+<script src="js/terminal.js"></script>
+<script src="js/mission.js"></script>
+</body>
+</html>
