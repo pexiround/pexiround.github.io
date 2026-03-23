@@ -3,20 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HackingBox</title>
-<link rel="stylesheet" href="css/style.css">
+<title>Hacking OS Prototype</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <div id="desktop">
-  <div class="icon" onclick="openApp('terminal')" data-app="terminal">
+  <div class="icon" onclick="openApp('terminal')">
     <div class="icon-img">💻</div>
     <div class="icon-label">Terminal</div>
   </div>
-  <div class="icon" onclick="openApp('mission')" data-app="mission">
+  <div class="icon" onclick="openApp('mission')">
     <div class="icon-img">📄</div>
     <div class="icon-label">Mission Brief</div>
   </div>
-  <div class="icon" onclick="openApp('cheatsheet')" data-app="cheatsheet">
+  <div class="icon" onclick="openApp('cheatsheet')">
     <div class="icon-img">📘</div>
     <div class="icon-label">Cheat Sheet</div>
   </div>
@@ -34,17 +35,7 @@
 <!-- Cheat Sheet Window -->
 <div id="cheatsheet" class="window">
   <div class="title-bar">Cheat Sheet</div>
-  <div class="window-content" id="cheatsheet-content">
-    <ul>
-      <li>scan [domain] → find endpoints</li>
-      <li>probe [endpoint] → check vulnerabilities</li>
-      <li>bruteforce [endpoint] --user [user]</li>
-      <li>inject [endpoint] --payload [malware]</li>
-      <li>view_logs [endpoint]</li>
-      <li>firewall [action] → enable/disable firewall</li>
-      <li>patch [vulnerability] → fix endpoint</li>
-    </ul>
-  </div>
+  <div class="window-content" id="cheatsheet-content"></div>
 </div>
 
 <!-- Mission Window -->
@@ -53,8 +44,8 @@
   <div class="window-content" id="mission-content"></div>
 </div>
 
-<script src="js/os.js"></script>
-<script src="js/terminal.js"></script>
-<script src="js/mission.js"></script>
+<script src="os.js"></script>
+<script src="terminal.js"></script>
+<script src="mission.js"></script>
 </body>
 </html>
