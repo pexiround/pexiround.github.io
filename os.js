@@ -1,3 +1,4 @@
+// Open window
 function openApp(appId) {
   const app = document.getElementById(appId);
   if(app.style.display === "block") return;
