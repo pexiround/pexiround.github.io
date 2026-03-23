@@ -1,16 +1,30 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: monospace;
+  background: #111;
+  color: #0f0;
+  overflow: hidden;
+}
+
+/* Desktop */
 #desktop {
   display: flex;
   flex-wrap: wrap;
   padding: 20px;
+  height: 100vh;
+  box-sizing: border-box;
 }
 
+/* Icons */
 .icon {
   width: 80px;
   margin: 10px;
   text-align: center;
   cursor: pointer;
+  user-select: none;
+  position: relative;
 }
-
 .icon-img {
   font-size: 40px;
   background: #222;
@@ -18,10 +32,50 @@
   border-radius: 10px;
   padding: 10px;
 }
-
 .icon-label {
   margin-top: 5px;
-  font-family: monospace;
-  color: #0f0;
   font-size: 12px;
+}
+
+/* Windows */
+.window {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  width: 400px;
+  height: 300px;
+  background: #000;
+  border: 2px solid #0f0;
+  border-radius: 5px;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 10;
+}
+.title-bar {
+  background: #222;
+  padding: 5px;
+  font-weight: bold;
+  cursor: move;
+}
+.window-content {
+  padding: 10px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Terminal */
+#terminal-input {
+  width: 100%;
+  background: #111;
+  color: #0f0;
+  border: none;
+  outline: none;
+  font-family: monospace;
+  font-size: 14px;
+}
+#terminal-output {
+  height: 220px;
+  overflow-y: auto;
+  white-space: pre-wrap;
 }
