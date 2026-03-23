@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cyber OS Prototype</title>
+<title>HackingBox</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div id="desktop">
-  <!-- Icons (placeholders using emojis) -->
   <div class="icon" onclick="openApp('terminal')" data-app="terminal">
     <div class="icon-img">💻</div>
     <div class="icon-label">Terminal</div>
@@ -23,7 +22,7 @@
   </div>
 </div>
 
-<!-- Windows -->
+<!-- Terminal Window -->
 <div id="terminal" class="window">
   <div class="title-bar">Terminal</div>
   <div class="window-content">
@@ -32,18 +31,26 @@
   </div>
 </div>
 
+<!-- Cheat Sheet Window -->
 <div id="cheatsheet" class="window">
   <div class="title-bar">Cheat Sheet</div>
   <div class="window-content" id="cheatsheet-content">
-    <!-- Cheat sheet filled by JS -->
+    <ul>
+      <li>scan [domain] → find endpoints</li>
+      <li>probe [endpoint] → check vulnerabilities</li>
+      <li>bruteforce [endpoint] --user [user]</li>
+      <li>inject [endpoint] --payload [malware]</li>
+      <li>view_logs [endpoint]</li>
+      <li>firewall [action] → enable/disable firewall</li>
+      <li>patch [vulnerability] → fix endpoint</li>
+    </ul>
   </div>
 </div>
 
+<!-- Mission Window -->
 <div id="mission" class="window">
   <div class="title-bar">Mission Brief</div>
-  <div class="window-content" id="mission-content">
-    <!-- Mission text filled by JS -->
-  </div>
+  <div class="window-content" id="mission-content"></div>
 </div>
 
 <script src="js/os.js"></script>
