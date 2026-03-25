@@ -3,49 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hacking OS Prototype</title>
+<title>OS Prototype</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- Desktop -->
 <div id="desktop">
   <div class="icon" onclick="openApp('terminal')">
     <div class="icon-img">💻</div>
     <div class="icon-label">Terminal</div>
   </div>
+
   <div class="icon" onclick="openApp('mission')">
     <div class="icon-img">📄</div>
-    <div class="icon-label">Mission Brief</div>
+    <div class="icon-label">Mission</div>
   </div>
+
   <div class="icon" onclick="openApp('cheatsheet')">
     <div class="icon-img">📘</div>
-    <div class="icon-label">Cheat Sheet</div>
+    <div class="icon-label">Guide</div>
   </div>
 </div>
 
-<!-- Terminal Window -->
+<!-- Windows -->
 <div id="terminal" class="window">
-  <div class="title-bar">Terminal</div>
-  <div class="window-content">
+  <div class="title-bar">Terminal <span onclick="closeApp('terminal')">✖</span></div>
+  <div class="content">
     <div id="terminal-output"></div>
     <input id="terminal-input" placeholder="Type command..." />
   </div>
 </div>
 
-<!-- Cheat Sheet Window -->
-<div id="cheatsheet" class="window">
-  <div class="title-bar">Cheat Sheet</div>
-  <div class="window-content" id="cheatsheet-content"></div>
-</div>
-
-<!-- Mission Window -->
 <div id="mission" class="window">
-  <div class="title-bar">Mission Brief</div>
-  <div class="window-content" id="mission-content"></div>
+  <div class="title-bar">Mission <span onclick="closeApp('mission')">✖</span></div>
+  <div class="content" id="mission-content"></div>
 </div>
 
-<script src="os.js"></script>
-<script src="terminal.js"></script>
-<script src="mission.js"></script>
+<div id="cheatsheet" class="window">
+  <div class="title-bar">Guide <span onclick="closeApp('cheatsheet')">✖</span></div>
+  <div class="content" id="cheatsheet-content"></div>
+</div>
+
+<!-- Taskbar -->
+<div id="taskbar">
+  <div id="start">Start</div>
+  <div id="clock"></div>
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>
