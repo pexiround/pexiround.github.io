@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OS Prototype</title>
+<title>Cyber OS</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,43 +10,56 @@
 <!-- Desktop -->
 <div id="desktop">
   <div class="icon" onclick="openApp('terminal')">
-    <div class="icon-img">💻</div>
-    <div class="icon-label">Terminal</div>
+    <div class="icon-img">⌨️</div>
+    <span>Terminal</span>
   </div>
 
   <div class="icon" onclick="openApp('mission')">
     <div class="icon-img">📄</div>
-    <div class="icon-label">Mission</div>
+    <span>Mission</span>
   </div>
 
   <div class="icon" onclick="openApp('cheatsheet')">
     <div class="icon-img">📘</div>
-    <div class="icon-label">Guide</div>
+    <span>Guide</span>
   </div>
 </div>
 
-<!-- Windows -->
+<!-- WINDOWS -->
 <div id="terminal" class="window">
-  <div class="title-bar">Terminal <span onclick="closeApp('terminal')">✖</span></div>
-  <div class="content">
+  <div class="title-bar">
+    <span>Terminal</span>
+    <button onclick="closeApp('terminal')">✕</button>
+  </div>
+  <div class="content terminal">
     <div id="terminal-output"></div>
-    <input id="terminal-input" placeholder="Type command..." />
+    <input id="terminal-input" />
   </div>
 </div>
 
 <div id="mission" class="window">
-  <div class="title-bar">Mission <span onclick="closeApp('mission')">✖</span></div>
+  <div class="title-bar">
+    <span>Mission</span>
+    <button onclick="closeApp('mission')">✕</button>
+  </div>
   <div class="content" id="mission-content"></div>
 </div>
 
 <div id="cheatsheet" class="window">
-  <div class="title-bar">Guide <span onclick="closeApp('cheatsheet')">✖</span></div>
+  <div class="title-bar">
+    <span>Guide</span>
+    <button onclick="closeApp('cheatsheet')">✕</button>
+  </div>
   <div class="content" id="cheatsheet-content"></div>
 </div>
 
-<!-- Taskbar -->
+<!-- TASKBAR -->
 <div id="taskbar">
-  <div id="start">Start</div>
+  <div id="task-left">
+    <div class="task-icon" onclick="openApp('terminal')">⌨️</div>
+    <div class="task-icon" onclick="openApp('mission')">📄</div>
+    <div class="task-icon" onclick="openApp('cheatsheet')">📘</div>
+  </div>
   <div id="clock"></div>
 </div>
 
