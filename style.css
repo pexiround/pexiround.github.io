@@ -1,4 +1,4 @@
-/* Reset some defaults */
+/* Reset defaults */
 * {
     margin: 0;
     padding: 0;
@@ -9,15 +9,21 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #fff;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #0078D7, #00bfff, #00ffb0);
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
     background-size: cover;
     background-repeat: no-repeat;
     text-align: center;
     padding: 20px;
+}
+
+/* Header */
+header {
+    margin-bottom: 50px;
+}
+
+header .logo {
+    width: 80px;
+    margin-bottom: 20px;
 }
 
 header h1 {
@@ -27,31 +33,72 @@ header h1 {
 
 .subtitle {
     font-size: 1.2rem;
-    opacity: 0.85;
+    opacity: 0.8;
 }
 
-main {
-    margin: 50px 0;
+/* Download Section */
+.download-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.download-section .download-icon {
+    width: 60px;
+    margin-bottom: 20px;
 }
 
 .download-btn {
     padding: 18px 50px;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: bold;
     color: #fff;
     text-decoration: none;
-    border-radius: 10px;
+    border-radius: 12px;
     background: linear-gradient(90deg, #ff4e50, #f9d423);
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .download-btn:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 
+/* Coming Soon Section */
+.coming-soon h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.projects-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.project-card {
+    background: rgba(0,0,0,0.4);
+    padding: 20px;
+    border-radius: 12px;
+    width: 180px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.project-card img {
+    width: 60px;
+    margin-bottom: 15px;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+/* Footer */
 footer {
     margin-top: 50px;
-    font-size: 1rem;
-    opacity: 0.8;
+    font-size: 0.9rem;
+    opacity: 0.7;
 }
