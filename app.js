@@ -1,1 +1,1 @@
-console.log("Welcome to Zapcz Shell download page! More projects coming soon.");
+console.log("Welcome to Zapcz Projects! More projects coming soon.");
