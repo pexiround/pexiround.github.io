@@ -1,68 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Cyber OS</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Zapcz Shell Download</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<!-- Desktop -->
-<div id="desktop">
-  <div class="icon" onclick="openApp('terminal')">
-    <div class="icon-img">⌨️</div>
-    <span>Terminal</span>
-  </div>
-
-  <div class="icon" onclick="openApp('mission')">
-    <div class="icon-img">📄</div>
-    <span>Mission</span>
-  </div>
-
-  <div class="icon" onclick="openApp('cheatsheet')">
-    <div class="icon-img">📘</div>
-    <span>Guide</span>
-  </div>
-</div>
-
-<!-- WINDOWS -->
-<div id="terminal" class="window">
-  <div class="title-bar">
-    <span>Terminal</span>
-    <button onclick="closeApp('terminal')">✕</button>
-  </div>
-  <div class="content terminal">
-    <div id="terminal-output"></div>
-    <input id="terminal-input" />
-  </div>
-</div>
-
-<div id="mission" class="window">
-  <div class="title-bar">
-    <span>Mission</span>
-    <button onclick="closeApp('mission')">✕</button>
-  </div>
-  <div class="content" id="mission-content"></div>
-</div>
-
-<div id="cheatsheet" class="window">
-  <div class="title-bar">
-    <span>Guide</span>
-    <button onclick="closeApp('cheatsheet')">✕</button>
-  </div>
-  <div class="content" id="cheatsheet-content"></div>
-</div>
-
-<!-- TASKBAR -->
-<div id="taskbar">
-  <div id="task-left">
-    <div class="task-icon" onclick="openApp('terminal')">⌨️</div>
-    <div class="task-icon" onclick="openApp('mission')">📄</div>
-    <div class="task-icon" onclick="openApp('cheatsheet')">📘</div>
-  </div>
-  <div id="clock"></div>
-</div>
-
-<script src="app.js"></script>
+    <div class="container">
+        <h1>Zapcz Shell</h1>
+        <p>Download the Zapcz Shell executable for Windows:</p>
+        <!-- Download button -->
+        <a href="zapcz_shell.exe" download class="download-btn">Download Zapcz Shell</a>
+    </div>
+    <script src="app.js"></script>
 </body>
 </html>
