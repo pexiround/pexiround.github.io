@@ -4,7 +4,10 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+download-icon {
+    width : 200;
+    height: auto; /*to preserve the aspect ratio of the image*/
+}
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #fff;
