@@ -3,45 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zapcz Projects</title>
+    <title>zapcz</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <img src="zapcz.png" alt="Zapcz Logo" class="logo">
-        <h1>Zapcz Projects</h1>
-        <p class="subtitle">Tools, shells, and more coming soon!</p>
-    </header>
 
-    <main>
-        <section class="download-section">
-            <img src="zapcz.png" alt="Zapcz Icon" class="download-icon">
-            <a href="zapcz_shell.exe" download class="download-btn">Download Zapcz Shell</a>
-        </section>
+<header class="hero">
+    <img src="zapcz.png" class="logo">
+    <h1>zapcz</h1>
+    <p class="tagline">Independent systems development and software distribution.</p>
+</header>
 
-        <section class="coming-soon">
-            <h2>More Projects Coming Soon</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <img src="zapcz.png" alt="Project Placeholder">
-                    <p>Zapcz IDE (Actively Working on)</p>
-                </div>
-                <div class="project-card">
-                    <img src="zapcz.png" alt="Project Placeholder">
-                    <p>Zapcz Tools (Coming Soon)</p>
-                </div>
-                <div class="project-card">
-                    <img src="zapcz.png" alt="Project Placeholder">
-                    <p>Zapcz CLI (Coming Soon)</p>
-                </div>
-            </div>
-        </section>
-    </main>
+<section class="intro">
+    <p>
+        Hi, I'm the founder of Zapcz. This platform is dedicated to building and distributing
+        low-level software, operating systems, and custom tools designed for full system control.
+    </p>
+</section>
 
-    <footer>
-        <p>© 2026 Zapcz. Stay tuned for new projects!</p>
-    </footer>
+<section class="projects">
+    <h2>Projects</h2>
 
-    <script src="app.js"></script>
+    <div class="project">
+        <div>
+            <h3>zapczOS v1</h3>
+            <p>Custom 32-bit operating system built from the ground up.</p>
+        </div>
+        <a href="zapczOSv1.img" download class="btn">Download</a>
+    </div>
+
+    <div class="project">
+        <div>
+            <h3>zapcz Shell</h3>
+            <p>Custom command-line interface for system interaction.</p>
+        </div>
+        <a href="zapcz_shell.exe" download class="btn">Download</a>
+    </div>
+
+</section>
+
+<footer>
+    <p>© 2026 zapcz. All rights reserved.</p>
+</footer>
+
+<script src="app.js"></script>
 </body>
 </html>
