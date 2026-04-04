@@ -104,11 +104,11 @@ body {
 }
 
 .project-pics img {
-    max-width: 100%;
+    max-width: 120px;   /* make them smaller */
+    height: auto;       /* maintain aspect ratio */
     border-radius: 6px;
     border: 1px solid #eee;
 }
-
 footer {
     text-align: center;
     padding: 30px;
